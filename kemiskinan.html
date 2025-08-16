@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Kemiskinan - Dashboard Isu Strategis Majene</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-link.active {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold text-[#1e3a8a]">Dashboard Majene</div>
+            <div class="flex space-x-2">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="kemiskinan.html" class="nav-link active">Analisis Kemiskinan</a>
+                <a href="ekonomi.html" class="nav-link">Analisis Ekonomi</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="kemiskinan" class="page active">
+            <div class="container mx-auto p-4 md:p-8">
+                <header class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold text-[#1e3a8a] mb-2">Analisis Isu Strategis Kemiskinan</h1>
+                    <p class="text-lg md:text-xl text-slate-600">Kabupaten Majene Tahun 2024</p>
+                </header>
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-center">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#f59e0b]">
+                        <p class="text-lg text-slate-500 mb-2">Tingkat Kemiskinan</p>
+                        <p class="text-5xl font-bold text-[#1e3a8a]">13,64%</p>
+                        <p class="text-md text-slate-500 mt-2">Maret 2024</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#f59e0b]">
+                        <p class="text-lg text-slate-500 mb-2">Jumlah Penduduk Miskin</p>
+                        <p class="text-5xl font-bold text-[#1e3a8a]">24,41</p>
+                        <p class="text-md text-slate-500 mt-2">Ribu Jiwa (Maret 2024)</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#f59e0b]">
+                        <p class="text-lg text-slate-500 mb-2">Garis Kemiskinan</p>
+                        <p class="text-5xl font-bold text-[#1e3a8a]">Rp482.173</p>
+                        <p class="text-md text-slate-500 mt-2">per Kapita/Bulan (Maret 2024)</p>
+                    </div>
+                </section>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold text-[#1e3a8a] mb-4">Perkembangan Tingkat Kemiskinan</h2>
+                        <p class="text-slate-600 mb-6">Tingkat kemiskinan di Majene menunjukkan tren perbaikan dalam dua tahun terakhir. Setelah mencapai puncaknya pada 2022, persentase dan jumlah penduduk miskin berhasil diturunkan secara konsisten, menandakan efektivitas program penanggulangan yang dijalankan.</p>
+                        <div class="chart-container">
+                            <canvas id="kemiskinanPovertyRateChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold text-[#1e3a8a] mb-4">Kenaikan Garis Kemiskinan di Majene</h2>
+                        <p class="text-slate-600 mb-6">Meskipun angka kemiskinan turun, Garis Kemiskinan terus meningkat setiap tahun, tumbuh 4,53% pada 2024. Hal ini menunjukkan adanya kenaikan biaya hidup yang perlu diantisipasi agar tidak menghambat laju penurunan kemiskinan di masa depan.</p>
+                        <div class="chart-container">
+                            <canvas id="kemiskinanPovertyLineChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg lg:col-span-2">
+                        <h2 class="text-2xl font-bold text-[#1e3a8a] mb-4">Perbandingan Garis Kemiskinan se-Sulawesi Barat (2024)</h2>
+                        <p class="text-slate-600 mb-6">Garis Kemiskinan Kabupaten Majene (Rp482.173) berada di atas rata-rata Provinsi Sulawesi Barat (Rp454.879). Ini menyiratkan bahwa biaya untuk memenuhi kebutuhan dasar di Majene relatif lebih tinggi dibandingkan sebagian besar wilayah lain di provinsi ini.</p>
+                        <div class="chart-container">
+                            <canvas id="kemiskinanPovertyComparisonChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold text-[#1e3a8a] mb-4">Dimensi Kedalaman & Keparahan Kemiskinan</h2>
+                        <p class="text-slate-600 mb-6">Indeks Kedalaman (P1) dan Keparahan (P2) juga membaik sejak 2022. Penurunan indeks ini menandakan bahwa rata-rata pengeluaran penduduk miskin semakin mendekati garis kemiskinan, dan ketimpangan di antara mereka juga berkurang.</p>
+                        <div class="chart-container">
+                            <canvas id="kemiskinanPovertyDimensionsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h2 class="text-2xl font-bold text-[#1e3a8a] mb-4">Implikasi dan Arah Kebijakan</h2>
+                        <p class="text-slate-600 mb-6">Data menunjukkan keberhasilan sekaligus tantangan. Arah kebijakan ke depan perlu fokus pada tiga pilar utama untuk memastikan pembangunan yang inklusif dan berkelanjutan bagi masyarakat Majene.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 bg-[#f59e0b] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl">1</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#1e3a8a]">Mengelola Biaya Hidup</h3>
+                                    <p class="text-slate-600">Mengendalikan harga kebutuhan pokok dan memperkuat ketahanan pangan lokal untuk mengimbangi kenaikan Garis Kemiskinan.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 bg-[#f59e0b] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl">2</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#1e3a8a]">Memperkuat Pemberdayaan Ekonomi</h3>
+                                    <p class="text-slate-600">Melanjutkan program efektif seperti pelatihan keterampilan, bantuan modal UMKM, dan perluasan akses pasar untuk produk lokal.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 bg-[#f59e0b] text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-xl">3</div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-[#1e3a8a]">Meningkatkan Kesejahteraan Berkelanjutan</h3>
+                                    <p class="text-slate-600">Fokus pada program yang meningkatkan produktivitas dan pendapatan stabil, bukan hanya bantuan sosial sementara, untuk mencegah penduduk kembali jatuh miskin.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white text-center mt-12 py-6 border-t border-slate-200">
+        <p class="text-slate-500">Sumber Data: Analisis data Kemiskinan BPS diolah. Infografis dibuat pada 16 Agustus 2025.</p>
+    </footer>
+
+    <script>
+        Chart.register(ChartDataLabels);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartTooltip = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    },
+                    datalabels: { display: false }
+                }
+            };
+            
+            new Chart(document.getElementById('kemiskinanPovertyRateChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        type: 'line',
+                        label: 'Persentase Penduduk Miskin (%)',
+                        data: [13.73, 14.34, 15.13, 14.54, 13.64],
+                        borderColor: '#1e3a8a',
+                        backgroundColor: '#1e3a8a',
+                        tension: 0.3,
+                        yAxisID: 'y1'
+                    }, {
+                        type: 'bar',
+                        label: 'Jumlah Penduduk Miskin (Ribu Jiwa)',
+                        data: [24.12, 25.01, 26.62, 25.8, 24.41],
+                        backgroundColor: '#f59e0b',
+                        yAxisID: 'y'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            position: 'left',
+                            title: { display: true, text: 'Jumlah (Ribu Jiwa)' }
+                        },
+                        y1: {
+                            beginAtZero: true,
+                            position: 'right',
+                            title: { display: true, text: 'Persentase (%)' },
+                            grid: { drawOnChartArea: false }
+                        }
+                    },
+                    ...chartTooltip
+                }
+            });
+
+            new Chart(document.getElementById('kemiskinanPovertyLineChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Garis Kemiskinan (Rp per Kapita/Bulan)',
+                        data: [384344, 399350, 433111, 461255, 482173],
+                        backgroundColor: '#f59e0b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...chartTooltip.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: { display: true, text: 'Rupiah (Rp)' }
+                        }
+                    }
+                }
+            });
+
+            const comparisonLabels = ['Kab. Polewali Mandar', 'Kab. Majene', 'Kab. Pasangkayu', 'Sulawesi Barat (Rata-rata)', 'Kab. Mamuju', 'Kab. Mamasa', 'Kab. Mamuju Tengah'];
+            const comparisonData = [507347, 482173, 478000, 454879, 445000, 435000, 420000];
+            new Chart(document.getElementById('kemiskinanPovertyComparisonChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: comparisonLabels,
+                    datasets: [{
+                        label: 'Garis Kemiskinan (Rp)',
+                        data: comparisonData,
+                        backgroundColor: comparisonData.map(v => v === 482173 ? '#1e3a8a' : (v === 454879 ? '#dc2626' : '#f59e0b'))
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        ...chartTooltip.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Rupiah (Rp)' }
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('kemiskinanPovertyDimensionsChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Indeks Kedalaman (P1)',
+                        data: [2.21, 2.03, 2.6, 1.87, 1.82],
+                        borderColor: '#1e3a8a',
+                        backgroundColor: '#1e3a8a',
+                        tension: 0.3
+                    }, {
+                        label: 'Indeks Keparahan (P2)',
+                        data: [0.53, 0.48, 0.61, 0.35, 0.41],
+                        borderColor: '#f59e0b',
+                        backgroundColor: '#f59e0b',
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Nilai Indeks' }
+                        }
+                    },
+                    ...chartTooltip
+                }
+            });
+        });
+    </script>
+</body>
+</html>

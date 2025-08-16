@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Ekonomi - Dashboard Isu Strategis Majene</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+        }
+        .quadrant-chart-container {
+             position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-link.active {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+            .quadrant-chart-container {
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold text-[#1e3a8a]">Dashboard Majene</div>
+            <div class="flex space-x-2">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="kemiskinan.html" class="nav-link">Analisis Kemiskinan</a>
+                <a href="ekonomi.html" class="nav-link active">Analisis Ekonomi</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="ekonomi" class="page active">
+             <div class="container mx-auto p-4 md:p-8">
+                <header class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold text-[#1e3a8a] mb-2">Analisis Isu Strategis Daya Saing Ekonomi</h1>
+                    <p class="text-lg md:text-xl text-slate-600">Kajian Pertumbuhan dan Pergeseran Struktural Kabupaten Majene Periode 2019-2023</p>
+                </header>
+                <section class="bg-white p-6 rounded-xl shadow-lg mb-12">
+                    <h2 class="text-2xl font-bold text-[#1e3a8a] mb-4 text-center">Tinjauan Kinerja Perekonomian Makro</h2>
+                    <p class="text-slate-600 mb-6 text-center max-w-4xl mx-auto">Selama periode 2019-2023, perekonomian Kabupaten Majene menunjukkan resiliensi dan pemulihan yang kuat pasca-kontraksi. Pertumbuhan kumulatif PDRB Majene sebesar **14,32%** melampaui rata-rata Provinsi Sulawesi Barat (12,80%), menandakan adanya dinamisme ekonomi yang unggul.</p>
+                    <div class="chart-container">
+                        <canvas id="ekonomiEconomicGrowthChart"></canvas>
+                    </div>
+                </section>
+                <section class="text-center mb-12">
+                     <h2 class="text-3xl font-bold text-[#1e3a8a] mb-4">Dekonstruksi Pertumbuhan: Analisis Shift-Share</h2>
+                     <p class="text-slate-600 mb-8 max-w-4xl mx-auto">Analisis Shift-Share membedah pertumbuhan ekonomi Majene menjadi dua komponen utama: pengaruh bauran industri (apakah sektor terkonsentrasi pada industri yang tumbuh cepat) dan keunggulan kompetitif (apakah sektor lokal lebih unggul dari rata-rata provinsi).</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-slate-400"><p class="text-lg text-slate-500 mb-2">Total Bauran Industri (PPij)</p><p class="text-4xl font-bold text-red-600">-Rp27,71 M</p><p class="text-sm text-slate-500 mt-2">Struktur ekonomi cenderung melambat</p></div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#1e3a8a]"><p class="text-lg text-slate-500 mb-2">Total Keunggulan Kompetitif (PPWij)</p><p class="text-4xl font-bold text-green-600">+Rp82,19 M</p><p class="text-sm text-slate-500 mt-2">Daya saing lokal menjadi pendorong utama</p></div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#f59e0b]"><p class="text-lg text-slate-500 mb-2">Total Pertumbuhan Bersih (PBij)</p><p class="text-4xl font-bold text-green-600">+Rp54,47 M</p><p class="text-sm text-slate-500 mt-2">Kinerja neto positif melampaui provinsi</p></div>
+                    </div>
+                </section>
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-xl shadow-lg"><h3 class="text-xl font-bold text-[#1e3a8a] mb-2">Analisis Bauran Industri (PPij)</h3><p class="text-slate-600 mb-4">Sektor Informasi & Komunikasi dan Pertanian memberikan keuntungan struktural, namun terbebani oleh sektor Administrasi Pemerintahan dan Jasa Pendidikan yang trennya melambat di tingkat provinsi.</p><div class="chart-container"><canvas id="ekonomiPpijChart"></canvas></div></div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg"><h3 class="text-xl font-bold text-[#1e3a8a] mb-2">Analisis Keunggulan Kompetitif (PPWij)</h3><p class="text-slate-600 mb-4">Kekuatan utama Majene terletak di sini. Sektor Pertanian dan Industri Pengolahan menunjukkan daya saing luar biasa, tumbuh jauh lebih cepat dari rata-rata provinsi dan menjadi motor penggerak utama.</p><div class="chart-container"><canvas id="ekonomiPpwiiChart"></canvas></div></div>
+                </div>
+                <section class="bg-white p-6 rounded-xl shadow-lg mb-12">
+                    <h2 class="text-3xl font-bold text-[#1e3a8a] mb-4 text-center">Pemetaan Posisi Strategis Sektor Ekonomi</h2>
+                    <p class="text-slate-600 mb-6 text-center max-w-4xl mx-auto">Visualisasi kuadran ini memetakan setiap sektor berdasarkan Bauran Industri (sumbu horizontal) dan Keunggulan Kompetitif (sumbu vertikal), mengidentifikasi sektor unggulan, potensial, dan yang memerlukan perhatian.</p>
+                    <div class="quadrant-chart-container"><canvas id="ekonomiQuadrantChart"></canvas></div>
+                </section>
+                <section>
+                    <h2 class="text-3xl font-bold text-[#1e3a8a] mb-8 text-center">Implikasi dan Rekomendasi Kebijakan</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg"><h3 class="font-bold text-lg text-[#1e3a8a] mb-2">Strategi 1: Akselerasi Sektor Unggulan (Kuadran I)</h3><p class="text-slate-600">Fokus pada modernisasi dan hilirisasi sektor **Pertanian** dan **Industri Pengolahan**. Peningkatan produktivitas melalui teknologi dan pengembangan rantai nilai akan memperkokoh fondasi ekonomi.</p></div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg"><h3 class="font-bold text-lg text-[#1e3a8a] mb-2">Strategi 2: Optimalisasi Sektor Potensial (Kuadran IV)</h3><p class="text-slate-600">Menggali potensi yang belum termanfaatkan di sektor **Informasi & Komunikasi** dan **Perdagangan**. Identifikasi hambatan lokal dan percepat pembangunan infrastruktur digital untuk mendorong daya saing.</p></div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg md:col-span-2 lg:col-span-1"><h3 class="font-bold text-lg text-[#1e3a8a] mb-2">Strategi 3: Intervensi dan Inovasi (Kuadran II & III)</h3><p class="text-slate-600">Mendorong inovasi pada sektor kompetitif seperti **Jasa Pendidikan** untuk mengatasi tren industri yang melambat. Melakukan reformasi dan evaluasi pada sektor **Administrasi Pemerintahan** untuk meningkatkan efisiensi.</p></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white text-center mt-12 py-6 border-t border-slate-200">
+        <p class="text-slate-500">Sumber Data: Analisis data PDRB BPS diolah. Infografis dibuat pada 16 Agustus 2025.</p>
+    </footer>
+
+    <script>
+        Chart.register(ChartDataLabels);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartTooltip = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            }
+                        }
+                    },
+                    datalabels: { display: false }
+                }
+            };
+            
+            new Chart(document.getElementById('ekonomiEconomicGrowthChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        type: 'line',
+                        label: 'Laju Pertumbuhan Ekonomi (%)',
+                        data: [5.89, -1.38, 2.13, 2.38, 5.29],
+                        borderColor: '#1e3a8a',
+                        backgroundColor: '#1e3a8a',
+                        tension: 0.1,
+                        yAxisID: 'y1'
+                    }, {
+                        type: 'bar',
+                        label: 'PDRB ADHK (Triliun Rupiah)',
+                        data: [3.572, 3.523, 3.598, 3.683, 3.878],
+                        backgroundColor: '#f59e0b',
+                        yAxisID: 'y'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            position: 'left',
+                            title: { display: true, text: 'PDRB (Triliun Rupiah)' }
+                        },
+                        y1: {
+                            position: 'right',
+                            title: { display: true, text: 'Laju Pertumbuhan (%)' },
+                            grid: { drawOnChartArea: false }
+                        }
+                    },
+                    ...chartTooltip
+                }
+            });
+
+            const sectorLabels = ['A. Pertanian', 'B. Pertambangan', 'C. Industri', 'D. Listrik/Gas', 'E. Air/Sampah', 'F. Konstruksi', 'G. Perdagangan', 'H. Transportasi', 'I. Akomodasi', 'J. Infokom', 'K. Jasa Keuangan', 'L. Real Estate', 'M,N. Jasa Perusahaan', 'O. Adm. Pemerintahan', 'P. Jasa Pendidikan', 'Q. Jasa Kesehatan', 'R,S,T,U. Jasa Lainnya'];
+            const ppijData = [22.245, 4.850, 4.236, 1.281, -0.137, -26.533, 12.983, 4.858, 1.566, 29.569, -3.123, 5.815, 0.021, -54.112, -38.111, 4.153, 2.726];
+            const ppwijData = [50.206, -6.491, 29.624, -0.232, -0.508, 9.255, -2.891, 2.567, -0.034, -4.929, 3.478, -4.144, -0.005, -7.140, 11.999, 0.475, 0.957];
+            
+            const createEkonomiBarChart = (ctx, label, data) => {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: sectorLabels.map(l => l.split('.')[0]),
+                        datasets: [{
+                            label: label,
+                            data: data,
+                            backgroundColor: data.map(v => v > 0 ? '#1e3a8a' : '#f59e0b'),
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    title: (tooltipItems) => sectorLabels[tooltipItems[0].dataIndex]
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: { display: true, text: 'Miliar Rupiah' }
+                            }
+                        }
+                    }
+                });
+            };
+            createEkonomiBarChart(document.getElementById('ekonomiPpijChart').getContext('2d'), 'Bauran Industri (PPij)', ppijData);
+            createEkonomiBarChart(document.getElementById('ekonomiPpwiiChart').getContext('2d'), 'Keunggulan Kompetitif (PPWij)', ppwijData);
+
+            new Chart(document.getElementById('ekonomiQuadrantChart').getContext('2d'), {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Sektor Ekonomi',
+                        data: ppijData.map((ppij, i) => ({ x: ppij, y: ppwijData[i], label: sectorLabels[i].split('.')[0] })),
+                        backgroundColor: '#1e3a8a',
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(c) {
+                                    return `${sectorLabels[c.dataIndex]}: (PPij: ${c.parsed.x.toFixed(2)}, PPWij: ${c.parsed.y.toFixed(2)})`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            align: 'top',
+                            color: '#334155',
+                            font: { weight: 'bold' },
+                            formatter: (v) => v.label
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Bauran Industri (PPij) - Struktural' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Keunggulan Kompetitif (PPWij) - Daya Saing' }
+                        }
+                    },
+                    plugins: [{
+                        id: 'quadrantLines',
+                        beforeDraw: (chart) => {
+                            const {ctx, chartArea: {left, top, right, bottom}, scales: {x, y}} = chart;
+                            ctx.save();
+                            ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(x.getPixelForValue(0), top);
+                            ctx.lineTo(x.getPixelForValue(0), bottom);
+                            ctx.moveTo(left, y.getPixelForValue(0));
+                            ctx.lineTo(right, y.getPixelForValue(0));
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>
